@@ -1,0 +1,31 @@
+{% extends "enroll/base.html" %}
+{% load static %}
+
+{% block title %}Registration Form{% endblock title %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-sm-8 offset-2 mt-2">
+        <h3 class="text-center alert alert-danger mt-2">Registration Form </h3>
+
+        <form action="" method="POST" novalidate>
+          {% csrf_token %}
+          {% if form %}
+          {% for fm in form %}
+            <div class="form-group fw-bold mt-1">
+              {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+            </div>
+          {% endfor %}
+          {% endif %}
+
+          <input type="submit" class="btn btn-primary mt-2" value="submit">
+        </form>
+
+        {% if messages %}
+          {% for message in messages %}
+            <p {% if message.tags %} class="alert alert-{{message.tags}} mt-2" {% endif %}>{{message}}</p>
+          {% endfor %}
+        {% endif %}
+    </div>
+  </div>
+{% endblock content %}
